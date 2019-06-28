@@ -1,0 +1,52 @@
+{
+  "name": "@capacitor/angular",
+  "version": "0.0.8",
+  "description": "Schematics for capacitor/angular apps.",
+  "homepage": "https://capacitor.ionicframework.com",
+  "author": "Ionic Team <hi@ionicframework.com> (https://ionicframework.com)",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ionic-team/capacitor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ionic-team/capacitor/issues"
+  },
+  "keywords": [
+    "angular",
+    "Angular CLI",
+    "blueprints",
+    "code generation",
+    "devkit",
+    "schematics",
+    "ionic",
+    "ionic framework",
+    "ionicframework",
+    "capacitor",
+    "cap",
+    "cross platform"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular-devkit/core": "~8.0.0",
+    "@angular-devkit/schematics": "~8.0.0",
+    "rxjs": "~6.4.0",
+    "typescript": "~3.4.3"
+  },
+  "devDependencies": {
+    "@angular-devkit/core": "~8.0.0",
+    "@angular-devkit/schematics": "~8.0.0",
+    "@angular/cli": "~8.0.0",
+    "@types/node": "~10.12.0",
+    "rxjs": "~6.4.0",
+    "tslint": "~5.12.1",
+    "tslint-ionic-rules": "0.0.21",
+    "typescript": "~3.4.3",
+    "typescript-tslint-plugin": "0.3.1"
+  },
+  "schematics": "./schematics/collection.json"
+}
