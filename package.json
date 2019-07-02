@@ -1,6 +1,6 @@
 {
   "name": "@capacitor/angular",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Schematics for capacitor/angular apps.",
   "homepage": "https://capacitor.ionicframework.com",
   "author": "Ionic Team <hi@ionicframework.com> (https://ionicframework.com)",
@@ -11,10 +11,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ionic-team/capacitor.git"
+    "url": "https://github.com/ionic-team/capacitor-angular-toolkit"
   },
   "bugs": {
-    "url": "https://github.com/ionic-team/capacitor/issues"
+    "url": "https://github.com/ionic-team/capacitor-angular-toolkit/issues"
   },
   "keywords": [
     "angular",

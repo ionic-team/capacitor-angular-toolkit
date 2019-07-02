@@ -13,7 +13,12 @@ import { Schema as IonAddOptions } from './schema';
 function addCapacitorToPackageJson(): Rule {
   return (host: Tree) => {
     addPackageToPackageJson(host, 'dependencies', '@capacitor/core', 'latest');
-    addPackageToPackageJson(host, 'devDependencies', '@capacitor/cli', 'latest');
+    addPackageToPackageJson(
+      host,
+      'devDependencies',
+      '@capacitor/cli',
+      'latest'
+    );
     return host;
   };
 }
@@ -24,12 +29,7 @@ function getTsSourceFile(host: Tree, path: string): SourceFile {
     throw new SchematicsException(`Could not read file (${path}).`);
   }
   const content = buffer.toString();
-  const source = createSourceFile(
-    path,
-    content,
-    ScriptTarget.Latest,
-    true
-  );
+  const source = createSourceFile(path, content, ScriptTarget.Latest, true);
 
   return source;
 }
@@ -64,7 +64,21 @@ function addCapPluginsToAppComponent(projectSourceRoot: string): Rule {
 function capInit(projectName: string, npmTool: string, webDir: string): Rule {
   return (host: Tree, context: SchematicContext) => {
     const packageInstall = context.addTask(new NodePackageInstallTask());
-    context.addTask(new RunSchematicTask('cap-init', { command: 'npx', args: ['cap', 'init', projectName, '--npm-client', npmTool, '--web-dir', webDir] }), [packageInstall]);
+    context.addTask(
+      new RunSchematicTask('cap-init', {
+        command: 'npx',
+        args: [
+          'cap',
+          'init',
+          projectName,
+          '--npm-client',
+          npmTool,
+          '--web-dir',
+          webDir,
+        ],
+      }),
+      [packageInstall]
+    );
     return host;
   };
 }
@@ -80,11 +94,15 @@ export default function ngAdd(options: IonAddOptions): Rule {
     const projectTree = workspace.projects.get(options.project);
 
     if (projectTree.extensions['projectType'] !== 'application') {
-      throw new SchematicsException(`Capacitor Add requires a project type of "application".`);
+      throw new SchematicsException(
+        `Capacitor Add requires a project type of "application".`
+      );
     }
 
     const packageMgm = getPackageManager(projectTree.root);
-    const distTarget = projectTree.targets.get('build').options['outputPath'] as string;
+    const distTarget = projectTree.targets.get('build').options[
+      'outputPath'
+    ] as string;
     const sourcePath = projectTree.sourceRoot;
 
     return chain([
