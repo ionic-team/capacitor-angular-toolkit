@@ -4,7 +4,6 @@
   "description": "Schematics for capacitor/angular apps.",
   "homepage": "https://capacitor.ionicframework.com",
   "author": "Ionic Team <hi@ionicframework.com> (https://ionicframework.com)",
-  "main": "index.js",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w"

@@ -8,7 +8,7 @@ import { insertImport, isImported } from '../utils/devkit-utils/ast-utils';
 import { InsertChange } from '../utils/devkit-utils/change';
 
 import { addPackageToPackageJson } from './../utils/package';
-import { Schema as IonAddOptions } from './schema';
+import { Schema as CapAddOptions } from './schema';
 
 function addCapacitorToPackageJson(): Rule {
   return (host: Tree) => {
@@ -64,11 +64,11 @@ function addCapPluginsToAppComponent(projectSourceRoot: string): Rule {
 function capInit(projectName: string, npmTool: string, webDir: string): Rule {
   return (host: Tree, context: SchematicContext) => {
     const packageInstall = context.addTask(new NodePackageInstallTask());
+    const command = npmTool === 'npm' ? 'npx' : 'yarn';
     context.addTask(
       new RunSchematicTask('cap-init', {
-        command: 'npx',
+        command,
         args: [
-          'cap',
           'init',
           projectName,
           '--npm-client',
@@ -83,7 +83,7 @@ function capInit(projectName: string, npmTool: string, webDir: string): Rule {
   };
 }
 
-export default function ngAdd(options: IonAddOptions): Rule {
+export default function ngAdd(options: CapAddOptions): Rule {
   return async (host: Tree) => {
     const workspace = await getWorkspace(host);
 
