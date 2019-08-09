@@ -69,6 +69,7 @@ function capInit(projectName: string, npmTool: string, webDir: string): Rule {
       new RunSchematicTask('cap-init', {
         command,
         args: [
+          'cap',
           'init',
           projectName,
           '--npm-client',

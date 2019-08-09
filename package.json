@@ -1,6 +1,6 @@
 {
   "name": "@capacitor/angular",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Schematics for capacitor/angular apps.",
   "homepage": "https://capacitor.ionicframework.com",
   "author": "Ionic Team <hi@ionicframework.com> (https://ionicframework.com)",
