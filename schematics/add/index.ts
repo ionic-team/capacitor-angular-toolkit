@@ -1,11 +1,20 @@
-import { Rule, SchematicContext, SchematicsException, Tree, chain } from '@angular-devkit/schematics';
-import { NodePackageInstallTask, RunSchematicTask } from '@angular-devkit/schematics/tasks';
-import { getPackageManager } from '@angular/cli/utilities/package-manager';
+import {
+  Rule,
+  SchematicContext,
+  SchematicsException,
+  Tree,
+  chain,
+} from '@angular-devkit/schematics';
+import {
+  NodePackageInstallTask,
+  RunSchematicTask,
+} from '@angular-devkit/schematics/tasks';
 import { getWorkspace } from '@schematics/angular/utility/workspace';
 import { ScriptTarget, SourceFile, createSourceFile } from 'typescript';
 
 import { insertImport, isImported } from '../utils/devkit-utils/ast-utils';
 import { InsertChange } from '../utils/devkit-utils/change';
+import { getPackageManager } from '../utils/getPackageManager';
 
 import { addPackageToPackageJson } from './../utils/package';
 import { Schema as CapAddOptions } from './schema';
@@ -101,9 +110,7 @@ export default function ngAdd(options: CapAddOptions): Rule {
     }
 
     const packageMgm = getPackageManager(projectTree.root);
-    const distTarget = projectTree.targets.get('build').options[
-      'outputPath'
-    ] as string;
+    const distTarget = projectTree.targets.get('build').options[ 'outputPath' ] as string;
     const sourcePath = projectTree.sourceRoot;
 
     return chain([
