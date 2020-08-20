@@ -1,3 +1,4 @@
+/* tslint:disable */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -6,6 +7,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import * as ts from 'typescript';
+
 import { findNodes, insertAfterLastOccurrence } from './ast-utils';
 import { Change, NoopChange } from './change';
 

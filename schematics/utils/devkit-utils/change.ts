@@ -10,7 +10,6 @@ export interface Host {
   read(path: string): Promise<string>;
 }
 
-
 export interface Change {
   apply(host: Host): Promise<void>;
 
@@ -26,7 +25,6 @@ export interface Change {
   readonly description: string;
 }
 
-
 /**
  * An operation that does nothing.
  */
@@ -36,7 +34,6 @@ export class NoopChange implements Change {
   path = null;
   apply() { return Promise.resolve(); }
 }
-
 
 /**
  * Will add text to the source code.

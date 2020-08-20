@@ -5,6 +5,7 @@
   "homepage": "https://capacitor.ionicframework.com",
   "author": "Ionic Team <hi@ionicframework.com> (https://ionicframework.com)",
   "scripts": {
+    "lint": "tslint --project tsconfig.json",
     "build": "tsc",
     "watch": "tsc -w",
     "prepublishOnly": "npm run build",

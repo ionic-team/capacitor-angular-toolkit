@@ -1,3 +1,5 @@
+/* tslint:disable */
+
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -5,9 +7,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import * as ts from 'typescript';
-import { Change, InsertChange, NoopChange } from './change';
 
+import * as ts from 'typescript';
+
+import { Change, InsertChange, NoopChange } from './change';
 
 /**
  * Add Import `import { symbolName } from fileName` if the import doesn't exit
@@ -53,6 +56,7 @@ export function insertImport(source: ts.SourceFile, fileToEdit: string, symbolNa
 
     // insert import if it's not there
     if (importTextNodes.length === 0) {
+      // tslint:disable-next-line: no-shadowed-variable
       const fallbackPos =
         findNodes(relevantImports[0], ts.SyntaxKind.CloseBraceToken)[0].getStart() ||
         findNodes(relevantImports[0], ts.SyntaxKind.FromKeyword)[0].getStart();
@@ -83,18 +87,10 @@ export function insertImport(source: ts.SourceFile, fileToEdit: string, symbolNa
     toInsert,
     fileToEdit,
     fallbackPos,
-    ts.SyntaxKind.StringLiteral,
+    ts.SyntaxKind.StringLiteral
   );
 }
 
-
-/**
- * Find all nodes from the AST in the subtree of node of SyntaxKind kind.
- * @param node
- * @param kind
- * @param max The maximum number of items to return.
- * @return all nodes of kind, or [] if none is found
- */
 export function findNodes(node: ts.Node, kind: ts.SyntaxKind, max = Infinity): ts.Node[] {
   if (!node || max == 0) {
     return [];
@@ -123,11 +119,8 @@ export function findNodes(node: ts.Node, kind: ts.SyntaxKind, max = Infinity): t
   return arr;
 }
 
-
 /**
  * Get all the nodes from a source.
- * @param sourceFile The source file object.
- * @returns {Observable<ts.Node>} An observable of all the nodes in the source.
  */
 export function getSourceNodes(sourceFile: ts.SourceFile): ts.Node[] {
   const nodes: ts.Node[] = [sourceFile];
@@ -161,7 +154,6 @@ export function findNode(node: ts.Node, kind: ts.SyntaxKind, text: string): ts.N
   return foundNode;
 }
 
-
 /**
  * Helper for sorting nodes.
  * @return function to sort nodes in increasing order of position in sourceFile
@@ -169,7 +161,6 @@ export function findNode(node: ts.Node, kind: ts.SyntaxKind, text: string): ts.N
 function nodesByPosition(first: ts.Node, second: ts.Node): number {
   return first.getStart() - second.getStart();
 }
-
 
 /**
  * Insert `toInsert` after the last occurence of `ts.SyntaxKind[nodes[i].kind]`
@@ -205,7 +196,6 @@ export function insertAfterLastOccurrence(nodes: ts.Node[],
   return new InsertChange(file, lastItemPosition, toInsert);
 }
 
-
 export function getContentOfKeyLiteral(_source: ts.SourceFile, node: ts.Node): string | null {
   if (node.kind == ts.SyntaxKind.Identifier) {
     return (node as ts.Identifier).text;
@@ -215,7 +205,6 @@ export function getContentOfKeyLiteral(_source: ts.SourceFile, node: ts.Node): s
     return null;
   }
 }
-
 
 function _angularImportsFromNode(node: ts.ImportDeclaration,
                                  _sourceFile: ts.SourceFile): {[name: string]: string} {
@@ -242,11 +231,11 @@ function _angularImportsFromNode(node: ts.ImportDeclaration,
       if (nb.kind == ts.SyntaxKind.NamespaceImport) {
         // This is of the form `import * as name from 'path'`. Return `name.`.
         return {
-          [(nb as ts.NamespaceImport).name.text + '.']: modulePath,
+          [(nb).name.text + '.']: modulePath,
         };
       } else {
         // This is of the form `import {a,b,c} from 'path'`
-        const namedImports = nb as ts.NamedImports;
+        const namedImports = nb;
 
         return namedImports.elements
           .map((is: ts.ImportSpecifier) => is.propertyName ? is.propertyName.text : is.name.text)
@@ -264,7 +253,6 @@ function _angularImportsFromNode(node: ts.ImportDeclaration,
     return {};
   }
 }
-
 
 export function getDecoratorMetadata(source: ts.SourceFile, identifier: string,
                                      module: string): ts.Node[] {
@@ -312,7 +300,7 @@ export function getDecoratorMetadata(source: ts.SourceFile, identifier: string,
     .map(expr => expr.arguments[0] as ts.ObjectLiteralExpression);
 }
 
-function findClassDeclarationParent(node: ts.Node): ts.ClassDeclaration|undefined {
+function findClassDeclarationParent(node: ts.Node): ts.ClassDeclaration | undefined {
   if (ts.isClassDeclaration(node)) {
     return node;
   }
@@ -326,7 +314,7 @@ function findClassDeclarationParent(node: ts.Node): ts.ClassDeclaration|undefine
  * @param source source file containing one or more @NgModule
  * @returns the name of the first @NgModule, or `undefined` if none is found
  */
-export function getFirstNgModuleName(source: ts.SourceFile): string|undefined {
+export function getFirstNgModuleName(source: ts.SourceFile): string | undefined {
   // First, find the @NgModule decorators.
   const ngModulesMetadata = getDecoratorMetadata(source, 'NgModule', '@angular/core');
   if (ngModulesMetadata.length === 0) {
@@ -349,7 +337,7 @@ export function addSymbolToNgModuleMetadata(
   ngModulePath: string,
   metadataField: string,
   symbolName: string,
-  importPath: string | null = null,
+  importPath: string | null = null
 ): Change[] {
   const nodes = getDecoratorMetadata(source, 'NgModule', '@angular/core');
   let node: any = nodes[0];  // tslint:disable-line:no-any
@@ -369,9 +357,9 @@ export function addSymbolToNgModuleMetadata(
       const name = prop.name;
       switch (name.kind) {
         case ts.SyntaxKind.Identifier:
-          return (name as ts.Identifier).getText(source) == metadataField;
+          return (name).getText(source) == metadataField;
         case ts.SyntaxKind.StringLiteral:
-          return (name as ts.StringLiteral).text == metadataField;
+          return (name).text == metadataField;
       }
 
       return false;
@@ -432,7 +420,7 @@ export function addSymbolToNgModuleMetadata(
   }
 
   if (Array.isArray(node)) {
-    const nodeArray = node as {} as Array<ts.Node>;
+    const nodeArray = node as {} as ts.Node[];
     const symbolsArray = nodeArray.map(node => node.getText());
     if (symbolsArray.includes(symbolName)) {
       return [];
@@ -540,7 +528,7 @@ export function addEntryComponentToModule(source: ts.SourceFile,
                                           importPath: string): Change[] {
   return addSymbolToNgModuleMetadata(
     source, modulePath,
-    'entryComponents', classifiedName, importPath,
+    'entryComponents', classifiedName, importPath
   );
 }
 
@@ -555,7 +543,7 @@ export function isImported(source: ts.SourceFile,
     .filter(node => node.kind === ts.SyntaxKind.ImportDeclaration)
     .filter((imp: ts.ImportDeclaration) => imp.moduleSpecifier.kind === ts.SyntaxKind.StringLiteral)
     .filter((imp: ts.ImportDeclaration) => {
-      return (<ts.StringLiteral> imp.moduleSpecifier).text === importPath;
+      return (imp.moduleSpecifier as ts.StringLiteral).text === importPath;
     })
     .filter((imp: ts.ImportDeclaration) => {
       if (!imp.importClause) {

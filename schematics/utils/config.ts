@@ -1,10 +1,11 @@
+/* tslint:disable */
+import { JsonParseMode, experimental, parseJson } from '@angular-devkit/core';
 import { SchematicsException, Tree } from '@angular-devkit/schematics';
-import { experimental, parseJson, JsonParseMode } from '@angular-devkit/core';
 
 const CONFIG_PATH = 'angular.json';
 
 export function readConfig(host: Tree) {
-  const sourceText = host.read(CONFIG_PATH)!.toString('utf-8');
+  const sourceText = host.read(CONFIG_PATH).toString('utf-8');
   return JSON.parse(sourceText);
 }
 
@@ -55,7 +56,7 @@ export function addStyle(host: Tree, stylePath: string) {
 
   if (appConfig) {
     appConfig.architect.build.options.styles.push({
-      input: stylePath
+      input: stylePath,
     });
 
     writeConfig(host, config);
@@ -76,12 +77,12 @@ export function addAsset(host: Tree, asset: string | {glob: string; input: strin
   }
 }
 
-export function addArchitectBuilder(host: Tree, builderName: string, builderOpts: any){
+export function addArchitectBuilder(host: Tree, builderName: string, builderOpts: any) {
   const config = readConfig(host);
   const appConfig = getAngularAppConfig(config);
 
   if (appConfig) {
-    appConfig.architect[builderName] = builderOpts
+    appConfig.architect[builderName] = builderOpts;
     writeConfig(host, config);
   } else {
     throw new SchematicsException(`Cannot find valid app`);
