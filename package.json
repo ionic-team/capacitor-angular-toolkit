@@ -53,7 +53,7 @@
     "husky": "^4.0.10",
     "lint-staged": "^10.0.4",
     "rxjs": "~6.4.0",
-    "semantic-release": "^15.9.17",
+    "semantic-release": "^17.2.3",
     "tslint": "~5.12.1",
     "tslint-ionic-rules": "0.0.21",
     "typescript": "^3.9.7",
