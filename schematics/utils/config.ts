@@ -1,6 +1,7 @@
 /* tslint:disable */
-import { JsonParseMode, experimental, parseJson } from '@angular-devkit/core';
+import { JsonParseMode, parseJson } from '@angular-devkit/core';
 import { SchematicsException, Tree } from '@angular-devkit/schematics';
+import { WorkspaceDefinition } from "@angular-devkit/core/src/workspace";
 
 const CONFIG_PATH = 'angular.json';
 
@@ -89,8 +90,6 @@ export function addArchitectBuilder(host: Tree, builderName: string, builderOpts
   }
 }
 
-export type WorkspaceSchema = experimental.workspace.WorkspaceSchema;
-
 export function getWorkspacePath(host: Tree): string {
   const possibleFiles = ['/angular.json', '/.angular.json'];
   const path = possibleFiles.filter(path => host.exists(path))[0];
@@ -98,7 +97,7 @@ export function getWorkspacePath(host: Tree): string {
   return path;
 }
 
-export function getWorkspace(host: Tree): WorkspaceSchema {
+export function getWorkspace(host: Tree): WorkspaceDefinition {
   const path = getWorkspacePath(host);
   const configBuffer = host.read(path);
   if (configBuffer === null) {
@@ -106,5 +105,5 @@ export function getWorkspace(host: Tree): WorkspaceSchema {
   }
   const content = configBuffer.toString();
 
-  return (parseJson(content, JsonParseMode.Loose) as {}) as WorkspaceSchema;
+  return (parseJson(content, JsonParseMode.Loose) as {}) as WorkspaceDefinition;
 }
