@@ -1,7 +1,7 @@
 /* tslint:disable */
 import { JsonParseMode, parseJson } from '@angular-devkit/core';
 import { SchematicsException, Tree } from '@angular-devkit/schematics';
-import { WorkspaceDefinition } from "@angular-devkit/core/src/workspace";
+import { WorkspaceDefinition } from '@angular-devkit/core/src/workspace';
 
 const CONFIG_PATH = 'angular.json';
 
