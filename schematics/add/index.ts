@@ -10,7 +10,6 @@ import {
   RunSchematicTask,
 } from '@angular-devkit/schematics/tasks';
 import { getWorkspace } from '@schematics/angular/utility/workspace';
-import { ScriptTarget, SourceFile, createSourceFile } from 'typescript';
 
 import { getPackageManager } from '../utils/getPackageManager';
 
@@ -69,7 +68,6 @@ export default function ngAdd(options: CapAddOptions): Rule {
 
     const packageMgm = getPackageManager(projectTree.root);
     const distTarget = projectTree.targets.get('build').options[ 'outputPath' ] as string;
-    const sourcePath = projectTree.sourceRoot;
 
     return chain([
       addCapacitorToPackageJson(),
