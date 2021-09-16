@@ -12,8 +12,6 @@ import {
 import { getWorkspace } from '@schematics/angular/utility/workspace';
 import { ScriptTarget, SourceFile, createSourceFile } from 'typescript';
 
-import { insertImport, isImported } from '../utils/devkit-utils/ast-utils';
-import { InsertChange } from '../utils/devkit-utils/change';
 import { getPackageManager } from '../utils/getPackageManager';
 
 import { addPackageToPackageJson } from './../utils/package';
@@ -32,44 +30,6 @@ function addCapacitorToPackageJson(): Rule {
   };
 }
 
-function getTsSourceFile(host: Tree, path: string): SourceFile {
-  const buffer = host.read(path);
-  if (!buffer) {
-    throw new SchematicsException(`Could not read file (${path}).`);
-  }
-  const content = buffer.toString();
-  const source = createSourceFile(path, content, ScriptTarget.Latest, true);
-
-  return source;
-}
-
-function addCapPluginsToAppComponent(projectSourceRoot: string): Rule {
-  return (host: Tree) => {
-    const modulePath = `${projectSourceRoot}/app/app.component.ts`;
-    const moduleSource = getTsSourceFile(host, modulePath);
-    const importModule = 'Plugins';
-    const importPath = '@capacitor/core';
-    if (!isImported(moduleSource, importModule, importPath)) {
-      const change = insertImport(
-        moduleSource,
-        modulePath,
-        importModule,
-        importPath,
-        false
-      );
-      if (change) {
-        const recorder = host.beginUpdate(modulePath);
-        recorder.insertLeft(
-          (change as InsertChange).pos,
-          (change as InsertChange).toAdd
-        );
-        host.commitUpdate(recorder);
-      }
-    }
-    return host;
-  };
-}
-
 function capInit(projectName: string, npmTool: string, webDir: string): Rule {
   return (host: Tree, context: SchematicContext) => {
     const packageInstall = context.addTask(new NodePackageInstallTask());
@@ -81,8 +41,6 @@ function capInit(projectName: string, npmTool: string, webDir: string): Rule {
           'cap',
           'init',
           projectName,
-          '--npm-client',
-          npmTool,
           '--web-dir',
           webDir,
         ],
@@ -115,7 +73,6 @@ export default function ngAdd(options: CapAddOptions): Rule {
 
     return chain([
       addCapacitorToPackageJson(),
-      addCapPluginsToAppComponent(sourcePath),
       capInit(options.project, packageMgm, distTarget),
     ]);
   };
