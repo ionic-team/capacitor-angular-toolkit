@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "ionicCapInit",
+  "$id": "ionicCapInit",
   "title": "Init Cap",
   "type": "object",
   "properties": {
