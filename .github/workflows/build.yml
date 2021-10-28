@@ -20,7 +20,7 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
-      - name: Release
+      - name: Release Dry Run
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release --dry-run
