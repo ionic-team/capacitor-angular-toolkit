@@ -1,6 +1,6 @@
 {
   "name": "@capacitor/angular",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "Schematics for capacitor/angular apps.",
   "homepage": "https://capacitor.ionicframework.com",
   "author": "Ionic Team <hi@ionicframework.com> (https://ionicframework.com)",
@@ -57,7 +57,10 @@
   },
   "schematics": "./schematics/collection.json",
   "release": {
-    "branches": ["stable", "main"],
+    "branches": [
+      "stable",
+      "main"
+    ],
     "verifyConditions": [
       "@semantic-release/changelog",
       "@semantic-release/npm",
