@@ -57,7 +57,7 @@
   },
   "schematics": "./schematics/collection.json",
   "release": {
-    "branch": "stable",
+    "branches": ["stable"],
     "verifyConditions": [
       "@semantic-release/changelog",
       "@semantic-release/npm",
