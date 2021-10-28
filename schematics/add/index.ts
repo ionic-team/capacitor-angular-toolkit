@@ -9,10 +9,10 @@ import {
   NodePackageInstallTask,
   RunSchematicTask,
 } from '@angular-devkit/schematics/tasks';
-import { getWorkspace } from '@schematics/angular/utility/workspace';
 
 import { getPackageManager } from '../utils/getPackageManager';
 
+import { getWorkspace } from '@schematics/angular/utility/workspace';
 import { addPackageToPackageJson } from './../utils/package';
 import { Schema as CapAddOptions } from './schema';
 
@@ -36,13 +36,7 @@ function capInit(projectName: string, npmTool: string, webDir: string): Rule {
     context.addTask(
       new RunSchematicTask('cap-init', {
         command,
-        args: [
-          'cap',
-          'init',
-          projectName,
-          '--web-dir',
-          webDir,
-        ],
+        args: ['cap', 'init', projectName, '--web-dir', webDir],
       }),
       [packageInstall]
     );
@@ -51,23 +45,23 @@ function capInit(projectName: string, npmTool: string, webDir: string): Rule {
 }
 
 export default function ngAdd(options: CapAddOptions): Rule {
-  return async (host: Tree) => {
+  return async(host: Tree) => {
     const workspace = await getWorkspace(host);
 
     if (!options.project) {
       options.project = workspace.extensions.defaultProject as string;
     }
+    console.log(workspace.projects.get);
+    const project = workspace.projects.get(options.project);
 
-    const projectTree = workspace.projects.get(options.project);
-
-    if (projectTree.extensions['projectType'] !== 'application') {
-      throw new SchematicsException(
-        `Capacitor Add requires a project type of "application".`
-      );
+    if (!project || project.extensions.projectType !== 'application') {
+      throw new SchematicsException(`Capacitor Add requires a project type of "application".`);
     }
 
-    const packageMgm = getPackageManager(projectTree.root);
-    const distTarget = projectTree.targets.get('build').options[ 'outputPath' ] as string;
+    const packageMgm = getPackageManager(project.root);
+    const distTarget = project.targets.get('build').options[
+      'outputPath'
+    ] as string;
 
     return chain([
       addCapacitorToPackageJson(),
