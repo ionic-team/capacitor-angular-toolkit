@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/ionic-team/capacitor-angular-toolkit/compare/v2.0.1...v2.0.2) (2022-03-15)
+
+
+### Bug Fixes
+
+* **deps:** pin rxjs to 7.4 ([2adc26d](https://github.com/ionic-team/capacitor-angular-toolkit/commit/2adc26d87ed5d78d5147dcbb357948e684cd2d0e))
+
 ## [2.0.1](https://github.com/ionic-team/capacitor-angular-toolkit/compare/v2.0.0...v2.0.1) (2022-03-15)
 
 
