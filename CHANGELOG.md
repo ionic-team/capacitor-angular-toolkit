@@ -1,3 +1,10 @@
+## [2.0.3](https://github.com/ionic-team/capacitor-angular-toolkit/compare/v2.0.2...v2.0.3) (2022-03-15)
+
+
+### Bug Fixes
+
+* **deps:** ease up peer deps ([268fb72](https://github.com/ionic-team/capacitor-angular-toolkit/commit/268fb72eb723df8a9e1aa375d0423284dc2726a1))
+
 ## [2.0.2](https://github.com/ionic-team/capacitor-angular-toolkit/compare/v2.0.1...v2.0.2) (2022-03-15)
 
 
