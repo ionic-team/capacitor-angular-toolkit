@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/ionic-team/capacitor-angular-toolkit/compare/v2.0.0...v2.0.1) (2022-03-15)
+
+
+### Bug Fixes
+
+* **deps:** bump rxjs to v7 ([0db7c6a](https://github.com/ionic-team/capacitor-angular-toolkit/commit/0db7c6a459e5b51308ab98cf506dd94b0c1a36a2)), closes [#24](https://github.com/ionic-team/capacitor-angular-toolkit/issues/24) [#25](https://github.com/ionic-team/capacitor-angular-toolkit/issues/25)
+
 # [2.0.0](https://github.com/ionic-team/capacitor-angular-toolkit/compare/v1.0.3...v2.0.0) (2021-10-28)
 
 
